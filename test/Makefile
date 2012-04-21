@@ -15,7 +15,7 @@ lib:
 top:
 	vlog +incdir+$(MODEL_DIR) -sv $(SIM_TOP).sv
 
-TEST := example.hex
+TEST := testskip3.hex
 sim:
 	[ -f $(TEST) ]
 	vsim -c -do \
