@@ -1,7 +1,3 @@
-
-Behavior model of the DCPU-16 processor, in SystemVerilog.
-
-=======
 Behavioral model of DCPU-16 processor.  A verification testbench component.  This component will be handy for testing
 hardware implementations of the processor.
 
