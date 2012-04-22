@@ -9,9 +9,6 @@ TEST_PROGRAM := test_program
 compile: lib test_program top
 lib:
 	vlib work
-# model:
-# 	vlog +incdir+$(MODEL_DIR) -sv $(MODEL_DIR)/$(MODEL).sv
-
 top:
 	vlog +incdir+$(MODEL_DIR) -sv $(SIM_TOP).sv
 VSIM_EXIT := [ expr ![ examine sim_top.pgm.success ] ]
