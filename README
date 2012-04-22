@@ -1,4 +1,32 @@
-Behavioral model of DCPU-16 processor.  A verification testbench component.  This component will be handy for testing
-hardware implementations of the processor.
+Behavioral model of DCPU-16 processor.  A verification testbench component.  
+This component will be handy for testing hardware implementations of the 
+processor.
 
-See: http://0x10c.com/doc/dcpu-16.txt
+Processor spec: http://0x10c.com/doc/dcpu-16.txt
+
+Simulation:
+My goal is to support DCPU-16 RTL development using free tools, and with the 
+minimum possible involvement of software licensing. I'm simulating with
+Modelsim Altera Starter Edition 6.6d; the Makefile is full of assumptions 
+about that particular simulator; I don't intend that the model and the 
+simulation test program (test_program.sv) have any such assumptions, but 
+until I test with a different simulator, there probably are some.
+
+How-To:
+After cloning, open a shell in the test subdirectory and type 
+
+  % make
+
+This will compile everything and simulate with the default target test 
+program.  To use a different target test program, do
+
+  % make TEST=other.hex
+
+Dependencies:
+My goal is to verify the model against a C DCPU-16 emulator
+(aaronferrucci/dcpu16, forked from swetland/dcpu16).  To compile test program
+hex files, use a16 in that project.  Soon I plan to run both the C emulator
+and the model against the same hex file, and diff the outputs to determine 
+pass/fail.
+
+
