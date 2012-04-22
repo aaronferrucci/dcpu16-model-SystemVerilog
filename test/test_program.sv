@@ -5,18 +5,8 @@
 `define CLK_PERIOD 10
 module test_program #(parameter TEST = "test.hex");
 
+  bit success = 0;
   logic clk = 0;
-  initial begin
-    fork
-      begin : first_block
-        $display("first block");
-        #20;
-      end : first_block
-      begin : second_block
-        $display("second block");
-      end : second_block
-    join_any
-  end
 
   initial begin
     fork
@@ -35,10 +25,13 @@ module test_program #(parameter TEST = "test.hex");
 
       begin : catch_illegal_opcode
         wait (`DUT.illegal_opcode.triggered);
-        if (`DUT.instruction == 16'h3FF0)
+        if (`DUT.instruction == 16'h3FF0) begin
           $display("%t: < ILLEGAL OPCODE (success code)>", $time());
-        else
+          success = 1;
+        end
+        else begin
           $display("%t: < ILLEGAL OPCODE (0x%0X)>", $time(), `DUT.instruction);
+        end
       end : catch_illegal_opcode
 
       // Q: do I want a clock?  Maybe for counting instruction execution
@@ -49,7 +42,7 @@ module test_program #(parameter TEST = "test.hex");
       end : clock_thread
     join_any
 
-    $display("%t: simulation complete", $time());
+    $display("%t: simulation complete, success code: %0d", $time(), success);
 
     $stop;
   end

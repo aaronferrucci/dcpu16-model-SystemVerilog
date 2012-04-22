@@ -14,7 +14,7 @@ lib:
 
 top:
 	vlog +incdir+$(MODEL_DIR) -sv $(SIM_TOP).sv
-
+VSIM_EXIT := [ expr ![ examine sim_top.pgm.success ] ]
 TEST := testskip3.hex
 sim:
 	[ -f $(TEST) ]
@@ -23,7 +23,7 @@ sim:
           -G$(SIM_TOP)/TEST=\"$(TEST)\" \
           $(SIM_TOP); \
           run -a; \
-          quit -code 0;"
+          quit -code $(VSIM_EXIT);"
 
 test_program:
 	vlog -sv $(TEST_PROGRAM).sv
