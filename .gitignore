@@ -1,0 +1,4 @@
+*.swp
+work/*
+transcript
+*.hex
