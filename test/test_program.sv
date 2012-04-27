@@ -3,7 +3,7 @@
 
 `define DUT sim_top.dut
 `define CLK_PERIOD 10
-module test_program #(parameter TEST = "test.hex");
+module test_program #(parameter TARGET_PROGRAM = "test.hex");
 
   bit success = 0;
   logic clk = 0;
@@ -12,7 +12,7 @@ module test_program #(parameter TEST = "test.hex");
     fork
       begin : main_thread
         `DUT.reset();
-        `DUT.load(TEST);
+        `DUT.load(TARGET_PROGRAM);
 
         `DUT.dumpheader();
 
@@ -26,11 +26,11 @@ module test_program #(parameter TEST = "test.hex");
       begin : catch_illegal_opcode
         wait (`DUT.illegal_opcode.triggered);
         if (`DUT.instruction == 16'h3FF0) begin
-          $display("%t: < ILLEGAL OPCODE (success code)>", $time());
+          $display("< ILLEGAL OPCODE (success code)>");
           success = 1;
         end
         else begin
-          $display("%t: < ILLEGAL OPCODE (0x%0X)>", $time(), `DUT.instruction);
+          $display("< ILLEGAL OPCODE (0x%0X)>", `DUT.instruction);
         end
       end : catch_illegal_opcode
 

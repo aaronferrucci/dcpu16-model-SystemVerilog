@@ -2,10 +2,10 @@
 
 `include "dcpu16_model.sv"
 module sim_top();
-  parameter TEST = "test.hex";
+  parameter TARGET_PROGRAM = "test.hex";
   dcpu16_model dut = new;
   test_program #(
-    .TEST (TEST)
+    .TARGET_PROGRAM (TARGET_PROGRAM)
   ) pgm ();
 endmodule
 
