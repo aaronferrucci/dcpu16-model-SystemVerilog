@@ -1,4 +1,5 @@
 *.swp
 work
+results
 transcript
 *.hex
