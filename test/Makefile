@@ -31,6 +31,14 @@ sim:
           run -a; \
           quit -code $(VSIM_EXIT);"
 
+sim_debug:
+	[ -f $(TARGET_PROGRAM) ]
+	vsim -do \
+          "vsim \
+          -G$(SIM_TOP)/TARGET_PROGRAM=\"$(TARGET_PROGRAM)\" \
+          $(SIM_TOP); \
+          run -a;"
+
 test_program:
 	vlog -sv $(TEST_PROGRAM).sv
 

@@ -61,7 +61,7 @@ class dcpu16_model;
       casex (dest)
         6'b000???: this.regs[dest] = result;
         6'b001???: this.mem[this.regs[dest & 7]] = result;
-        6'b010???: this.mem[wr_pc++ + this.regs[dest & 7]] = result;
+        6'b010???: this.mem[this.mem[wr_pc++] + this.regs[dest & 7]] = result;
         6'h18: this.mem[wr_sp++] = result;
         6'h19: this.mem[wr_sp] = result;
         6'h1A: this.mem[--wr_sp] = result;
@@ -210,7 +210,11 @@ class dcpu16_model;
   endtask
 
   function string disassemble();
-    return "not implemented";
+    string msg;
+    begin
+      $sformat(msg, "%04X", this.mem[this.pc]);
+      return msg;
+    end
   endfunction
 
   task dumpstate;
